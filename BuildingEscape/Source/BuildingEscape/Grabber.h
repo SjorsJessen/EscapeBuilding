@@ -28,5 +28,4 @@ private:
 
 	//How far in front of the player can we reach?
 	float Reach = 100.0f;
-		
 };

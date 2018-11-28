@@ -48,9 +48,25 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 
 	//Draw a red trace in the world to visualize 
 	DrawDebugLine(GetWorld(), PlayerLocation, LineTraceEnd, FColor(255, 0, 0), false, 0.f, 0.0f, 10.0f);
+	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
 
 	//RayCast out to reach distance
+	FHitResult Hit;
+	//AActor* ObjectHit = ;
 
+	GetWorld()->LineTraceSingleByObjectType(
+		OUT Hit,
+		PlayerLocation,
+		LineTraceEnd,
+		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody), 
+		TraceParameters);
+	
 	//See what we hit 
+	AActor* ActorHit = Hit.GetActor();
+
+	if(ActorHit) //Check if raycast hits something, will crash if all non-hits are logging also.
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Actor hit: %s"), *ActorHit->GetName());
+	}	
 }
 
