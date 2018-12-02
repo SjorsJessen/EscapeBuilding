@@ -18,6 +18,7 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+	
 
 public:
 	// Called every frame
@@ -25,7 +26,6 @@ public:
 
 
 private:
-
 	//How far in front of the player can we reach?
 	float Reach = 100.0f;
 	AActor* GrabberOwner;
@@ -33,6 +33,8 @@ private:
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 	UInputComponent*  GrabberInput = nullptr;
 
+	FVector PlayerLocation;
+	FRotator PlayerRotation;
 
 	//Raycast and Grab what's in reach
 	void Grab();
@@ -46,6 +48,12 @@ private:
 	//Setup attached Input Component
 	void SetupInputComponent();
 
+	//Lifts the model which is grabbed by user
+	void LiftUpGrabbedComponent();
+
 	//Return hit for first physics body in reach
 	const FHitResult GetFirstPhysicsBodyInReach();
+
+	//Returns the LineTraceResult 
+	const FVector GetLineTraceResult();
 };
